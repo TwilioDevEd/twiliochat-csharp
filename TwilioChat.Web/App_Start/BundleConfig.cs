@@ -22,8 +22,16 @@ namespace TwilioChat.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/twiliochat").Include(
+                      "~/Scripts/jquery-throttle.min.js",
+                      "~/Scripts/jquery.loadTemplate-1.4.4.min.js",
+                      "~/Scripts/twiliochat.js",
+                      "~/Scripts/dateformatter.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/font-awesome.css",
+                      "~/Content/twilio-chat.css",
                       "~/Content/site.css"));
         }
     }
