@@ -1,6 +1,213 @@
 .chapter(data-title='Twilio Chat')
-  .step(data-title='Introduction')
+  .step(
+    data-title='Introduction',
+    data-file='TwilioChat.Web/Domain/TokenGenerator.cs')
     :markdown
       ## Introduction
 
       Ready to implement a chat application using Twilio IP Messaging Client?
+
+      This application allow users to exchange messages through different channels,
+      using the Twilio IP Messaging API. On this example, we'll show how to use 
+      this API capabilities to manage channels and their usages.
+
+      ---
+
+      **See Also:**
+      * [IP Messaging API](//www.twilio.com/docs/api/ip-messaging)
+      * [Channels and Messages](//www.twilio.com/docs/api/ip-messaging/guides/channels)
+      * [User Identity & Access Tokens](//www.twilio.com/docs/api/ip-messaging/guides/channels)
+      * [Twilio IP Messaging Client Reference](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/)
+
+  .step(data-title='Token Generation',
+        data-file='TwilioChat.Web/Domain/TokenGenerator.cs',
+        data-highlight='10-25')
+    :markdown
+      ## Token Generation
+
+      In order to create a Twilio IP messaging client, you will need an access
+      token. This token holds information about your Twilio Account and IP
+      Messaging API keys.
+
+      We generate this token by creating a new `AccessToken` and providing it with
+      an `IpMessagingGrant`. With the `AccessToken` at hand, we can use its
+      method `ToJWT()` to return its string representation.
+
+      ---
+
+      ** See also **
+      * [Twilio API Access Tokens](//www.twilio.com/docs/api/rest/access-tokens)
+
+  .step(data-title='Token Generation Controller',
+        data-file='TwilioChat.Web/Controllers/TokenController.cs',
+        data-highlight='17-28')
+    :markdown
+      ## Token Generation Controller
+
+      On our controller we expose the endpoint responsible to provide a valid
+      token. Using the information provided as parameters:
+
+      * `device`: identifies the device being used.  
+      * `identity`: identifies the user itself.
+
+      It uses `tokenGenerator.Generate` method to get hold of a new token
+      and return it in a JSON format to be used for our client.
+
+  .step(data-title='Initializing the Client',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='101-108,111-113')
+    :markdown
+      ## Initializing the IP Messaging Client
+
+      On our client, we fetch a new Token using a POST request to our endpoint.
+
+      And with the token we can instantiate a new `Twilio.AccessManager` that
+      it's used to initialize our `Twilio.IPMessaging.Client`.
+
+  .step(data-title='Getting the Channel List',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='144-154')
+    :markdown
+      ## Getting the Channel List
+
+      After initializing the client, we can now call it's method `getChannels`
+      to retrieve all visible channels. The method returns a promise as a
+      result that we use to show the list of channels retrieved on the UI.
+
+      --- 
+
+      ** See Also **
+      * [Client API: Get Channels](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html#getChannels)
+
+  .step(data-title='Join the General Channel',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='157-174')
+    :markdown
+      ## Join the General Channel
+
+      This application will try to join a channel called "General Channel" when it starts.
+      If the channel doesn't exist, we'll create one with that name. The scope of
+      this example application will show you how to work only with public channels,
+      but the IP Messaging client allows you to create private channels and handle
+      invitations.
+
+      Notice we set a unique name for the general channel as we don't want to
+      create a new general channel every time we start the application.
+
+  .step(data-title='Listen to Channel Events',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='184-188')
+    :markdown
+      ## Listen to Channel Events
+
+      With access to the channel objects we can use them to listen to
+      a series of events. In our case, we're setting listeners to the
+      following events:
+
+      * `messageAdded`: When another member sends a message to the channel you are connected to.
+      * `typingStarted`: When another member is typing a message on the channel that you are connected to.
+      * `typingEnded`: When another member stops typing a message on the channel that you are connected to.
+      * `memberJoined`: When another member joins the channel that you are connected to.
+      * `memberLeft`: When another member leaves the channel that you are connected to.
+
+      For each of these events, we are registering an function that will handle it.
+
+      ---
+
+      *** For a complete list of channel events ***
+      * [IP Channel API](https://media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Channel.html)
+
+  .step(data-title='Listen to Client Events',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='116-118')
+    :markdown
+      ## Listen to Channel Events
+
+      The same way, we can register handlers for events on the Client as well:
+
+      * `channelAdded`: When a channel becomes visible to the Client.
+      * `channelRemoved`: When a channel is no longer visible to the Client.
+      * `tokenExpired`: When the supplied token expires.
+
+      *** For a complete list of client events ***
+      * [IP Client API](https://media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html)
+
+  .step(data-title='Creating a Channel',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='161-169')
+    :markdown
+      ## Creating a Channel
+
+      To create a new channel, the user on the "+ Channel" link. That we'll show
+      an input text field where it's possible to type the name of the new channel.
+      The only restriction here, is that the user can't create a channel called
+      "General Channel". Other than that, creating a channel is as simple as calling
+      `createChannel` passing an object with that has the following required keys:
+
+      * `GENERAL_CHANNEL_UNIQUE_NAME`
+      * `GENERAL_CHANNEL_NAME`
+
+      --- 
+
+      ** See Also **
+      * [Client API: Create a Channel](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html#createChannel)
+
+
+  .step(data-title='Joining Other Channels',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='326-336')
+    :markdown
+      ## Joining Other Channel
+
+      When you tap on the name of a channel from the sidebar, that channel is set
+      as the `selectedChannel`. The `selectChannel` method takes care of joining
+      to the selected channel and setting up the `selectedChannel`.
+
+  .step(data-title='Deleting a Channel',
+        data-file='TwilioChat.Web/Scripts/twiliochat.js',
+        data-highlight='312-324')
+    :markdown
+      ## Deleting a Channel
+
+      Deleting a channel is even more simple than creating one. The application
+      lets the user delete the channel they are currently joined to through the
+      "delete current channel" link. The only thing you need to do to
+      actually delete the channel from Twilio, is call the `delete` method
+      on the channel you are trying to delete. As other methods on the `Channel'
+      object, It'll return a promise where you can set function that is going
+      to handle successes.
+
+      ---
+
+      ** See Also **
+      * [Channel API: Create a Channel](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Channel.html#delete)
+  .step(data-title='Where to Next?')
+    :markdown
+      ## Where to Next?
+
+      That's it! We've just implemented a simple chat application for C# using
+      ASP.NET MVC. If you are a C# developer working with Twilio,  you might want
+      to check out these other tutorials:
+
+      [SMS and MMS Notifications](https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/csharp/mvc)
+
+      Never miss another server outage. Learn how to build a server notification
+      system that will alert all administrators via SMS when a server outage occurs.
+
+      [Workflow Automation](https://www.twilio.com/docs/tutorials/walkthrough/workflow-automation/csharp/mvc)
+
+      Increase your rate of response by automating the workflows that are key
+      to your business. In this tutorial, learn how to build a ready-for-scale
+      automated SMS workflow, for a vacation rental company.
+
+      [Masked Phone Numbers](https://www.twilio.com/docs/tutorials/walkthrough/masked-numbers/csharp/mvc)
+
+      Protect your users' privacy by anonymously connecting them with Twilio
+      Voice and SMS. Learn how to create disposable phone numbers on-demand,
+      so two users can communicate without exchanging personal information.
+
+      ## Did this help?
+
+      Thanks for checking out this tutorial! If you have any feedback to share
+      with us, we'd love to hear it. Tweet
+      [@twilio](http://twitter.com/twilio) to let us know what you think.

@@ -1,0 +1,151 @@
+<!DOCTYPE html><html><head><title>Twilio Chat</title><style>body, html {
+  height:100%;
+  width:100%;
+  padding:0;
+  margin:0;
+  overflow:hidden;
+  background-color:#ddd;
+}
+.wrapper {
+  height:100%;
+  width:100%;
+}</style><link rel="shortcut icon" href="//twilio.com/bundles/marketing/img/favicons/favicon.ico"><link rel="apple-touch-icon" href="//twilio.com/bundles/marketing/img/favicons/favicon_57.png"><link rel="apple-touch-icon" sizes="72x72" href="//twilio.com/bundles/marketing/img/favicons/favicon_72.png"><link rel="apple-touch-icon" sizes="114x114" href="//twilio.com/bundles/marketing/img/favicons/favicon_114.png"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"><link rel="stylesheet" href="viewsaurus.css"></head><body><div class="wrapper"><div id="viewsaurus" data-title="Twilio Chat"><div class="saurus-panes"><div class="saurus-prose"><div class="saurus-prose-header"><div class="title-outer"><span class="step-title">Twilio Chat</span></div></div><div class="saurus-nav-buttons"><div class="saurus-nav-button nav-overview"><div class="saurus-nav-button-inner"><i class="fa fa-fw fa-list"></i></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-previous"><div class="saurus-nav-button-inner"><a href=""> <i class="fa fa-fw fa-play fa-rotate-180"></i></a></div><div class="nav-divider"></div></div><div class="saurus-nav-button nav-next clickable"><div class="saurus-nav-button-inner"><a href="#1"> <i class="fa fa-fw fa-play"></i></a></div></div><div class="saurus-next-title"><span class="next-title-inner"></span></div></div><div class="saurus-progress-bar"></div><div class="saurus-start"><p>Learn to implement a simple chat application using Twilio IP Messaging Client</p><a href="#0">Start Tutorial</a></div><div class="saurus-content"><div data-title="Twilio Chat" class="chapter"><div data-title="Introduction" data-file="TwilioChat.Web/Domain/TokenGenerator.cs" class="step"><h2 id="introduction">Introduction</h2>
+<p>Ready to implement a chat application using Twilio IP Messaging Client?</p>
+<p>This application allow users to exchange messages through different channels,
+using the Twilio IP Messaging API. On this example, we&#39;ll show how to use 
+this API capabilities to manage channels and their usages.</p>
+<hr>
+<p><strong>See Also:</strong></p>
+<ul>
+<li><a href="//www.twilio.com/docs/api/ip-messaging">IP Messaging API</a></li>
+<li><a href="//www.twilio.com/docs/api/ip-messaging/guides/channels">Channels and Messages</a></li>
+<li><a href="//www.twilio.com/docs/api/ip-messaging/guides/channels">User Identity &amp; Access Tokens</a></li>
+<li><a href="//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/">Twilio IP Messaging Client Reference</a></li>
+</ul>
+</div><div data-title="Token Generation" data-file="TwilioChat.Web/Domain/TokenGenerator.cs" data-highlight="10-25" class="step"><h2 id="token-generation">Token Generation</h2>
+<p>In order to create a Twilio IP messaging client, you will need an access
+token. This token holds information about your Twilio Account and IP
+Messaging API keys.</p>
+<p>We generate this token by creating a new <code>AccessToken</code> and providing it with
+an <code>IpMessagingGrant</code>. With the <code>AccessToken</code> at hand, we can use its
+method <code>ToJWT()</code> to return its string representation.</p>
+<hr>
+<p><strong> See also </strong></p>
+<ul>
+<li><a href="//www.twilio.com/docs/api/rest/access-tokens">Twilio API Access Tokens</a></li>
+</ul>
+</div><div data-title="Token Generation Controller" data-file="TwilioChat.Web/Controllers/TokenController.cs" data-highlight="17-28" class="step"><h2 id="token-generation-controller">Token Generation Controller</h2>
+<p>On our controller we expose the endpoint responsible to provide a valid
+token. Using the information provided as parameters:</p>
+<ul>
+<li><code>device</code>: identifies the device being used.  </li>
+<li><code>identity</code>: identifies the user itself.</li>
+</ul>
+<p>It uses <code>tokenGenerator.Generate</code> method to get hold of a new token
+and return it in a JSON format to be used for our client.</p>
+</div><div data-title="Initializing the Client" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="101-108,111-113" class="step"><h2 id="initializing-the-ip-messaging-client">Initializing the IP Messaging Client</h2>
+<p>On our client, we fetch a new Token using a POST request to our endpoint.</p>
+<p>And with the token we can instantiate a new <code>Twilio.AccessManager</code> that
+it&#39;s used to initialize our <code>Twilio.IPMessaging.Client</code>.</p>
+</div><div data-title="Getting the Channel List" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="144-154" class="step"><h2 id="getting-the-channel-list">Getting the Channel List</h2>
+<p>After initializing the client, we can now call it&#39;s method <code>getChannels</code>
+to retrieve all visible channels. The method returns a promise as a
+result that we use to show the list of channels retrieved on the UI.</p>
+<hr>
+<p><strong> See Also </strong></p>
+<ul>
+<li><a href="//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html#getChannels">Client API: Get Channels</a></li>
+</ul>
+</div><div data-title="Join the General Channel" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="157-174" class="step"><h2 id="join-the-general-channel">Join the General Channel</h2>
+<p>This application will try to join a channel called &quot;General Channel&quot; when it starts.
+If the channel doesn&#39;t exist, we&#39;ll create one with that name. The scope of
+this example application will show you how to work only with public channels,
+but the IP Messaging client allows you to create private channels and handle
+invitations.</p>
+<p>Notice we set a unique name for the general channel as we don&#39;t want to
+create a new general channel every time we start the application.</p>
+</div><div data-title="Listen to Channel Events" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="184-188" class="step"><h2 id="listen-to-channel-events">Listen to Channel Events</h2>
+<p>With access to the channel objects we can use them to listen to
+a series of events. In our case, we&#39;re setting listeners to the
+following events:</p>
+<ul>
+<li><code>messageAdded</code>: When another member sends a message to the channel you are connected to.</li>
+<li><code>typingStarted</code>: When another member is typing a message on the channel that you are connected to.</li>
+<li><code>typingEnded</code>: When another member stops typing a message on the channel that you are connected to.</li>
+<li><code>memberJoined</code>: When another member joins the channel that you are connected to.</li>
+<li><code>memberLeft</code>: When another member leaves the channel that you are connected to.</li>
+</ul>
+<p>For each of these events, we are registering an function that will handle it.</p>
+<hr>
+<p><strong><em> For a complete list of channel events </em></strong></p>
+<ul>
+<li><a href="https://media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Channel.html">IP Channel API</a></li>
+</ul>
+</div><div data-title="Listen to Client Events" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="116-118" class="step"><h2 id="listen-to-channel-events">Listen to Channel Events</h2>
+<p>The same way, we can register handlers for events on the Client as well:</p>
+<ul>
+<li><code>channelAdded</code>: When a channel becomes visible to the Client.</li>
+<li><code>channelRemoved</code>: When a channel is no longer visible to the Client.</li>
+<li><code>tokenExpired</code>: When the supplied token expires.</li>
+</ul>
+<p><strong><em> For a complete list of client events </em></strong></p>
+<ul>
+<li><a href="https://media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html">IP Client API</a></li>
+</ul>
+</div><div data-title="Creating a Channel" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="161-169" class="step"><h2 id="creating-a-channel">Creating a Channel</h2>
+<p>To create a new channel, the user on the &quot;+ Channel&quot; link. That we&#39;ll show
+an input text field where it&#39;s possible to type the name of the new channel.
+The only restriction here, is that the user can&#39;t create a channel called
+&quot;General Channel&quot;. Other than that, creating a channel is as simple as calling
+<code>createChannel</code> passing an object with that has the following required keys:</p>
+<ul>
+<li><code>GENERAL_CHANNEL_UNIQUE_NAME</code></li>
+<li><code>GENERAL_CHANNEL_NAME</code></li>
+</ul>
+<hr>
+<p><strong> See Also </strong></p>
+<ul>
+<li><a href="//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html#createChannel">Client API: Create a Channel</a></li>
+</ul>
+</div><div data-title="Joining Other Channels" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="326-336" class="step"><h2 id="joining-other-channel">Joining Other Channel</h2>
+<p>When you tap on the name of a channel from the sidebar, that channel is set
+as the <code>selectedChannel</code>. The <code>selectChannel</code> method takes care of joining
+to the selected channel and setting up the <code>selectedChannel</code>.</p>
+</div><div data-title="Deleting a Channel" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-highlight="312-324" class="step"><h2 id="deleting-a-channel">Deleting a Channel</h2>
+<p>Deleting a channel is even more simple than creating one. The application
+lets the user delete the channel they are currently joined to through the
+&quot;delete current channel&quot; link. The only thing you need to do to
+actually delete the channel from Twilio, is call the <code>delete</code> method
+on the channel you are trying to delete. As other methods on the `Channel&#39;
+object, It&#39;ll return a promise where you can set function that is going
+to handle successes.</p>
+<hr>
+<p><strong> See Also </strong></p>
+<ul>
+<li><a href="//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Channel.html#delete">Channel API: Create a Channel</a></li>
+</ul>
+</div><div data-title="Where to Next?" class="step"><h2 id="where-to-next-">Where to Next?</h2>
+<p>That&#39;s it! We&#39;ve just implemented a simple chat application for C# using
+ASP.NET MVC. If you are a C# developer working with Twilio,  you might want
+to check out these other tutorials:</p>
+<p><a href="https://www.twilio.com/docs/tutorials/walkthrough/server-notifications/csharp/mvc">SMS and MMS Notifications</a></p>
+<p>Never miss another server outage. Learn how to build a server notification
+system that will alert all administrators via SMS when a server outage occurs.</p>
+<p><a href="https://www.twilio.com/docs/tutorials/walkthrough/workflow-automation/csharp/mvc">Workflow Automation</a></p>
+<p>Increase your rate of response by automating the workflows that are key
+to your business. In this tutorial, learn how to build a ready-for-scale
+automated SMS workflow, for a vacation rental company.</p>
+<p><a href="https://www.twilio.com/docs/tutorials/walkthrough/masked-numbers/csharp/mvc">Masked Phone Numbers</a></p>
+<p>Protect your users&#39; privacy by anonymously connecting them with Twilio
+Voice and SMS. Learn how to create disposable phone numbers on-demand,
+so two users can communicate without exchanging personal information.</p>
+<h2 id="did-this-help-">Did this help?</h2>
+<p>Thanks for checking out this tutorial! If you have any feedback to share
+with us, we&#39;d love to hear it. Tweet
+<a href="http://twitter.com/twilio">@twilio</a> to let us know what you think.</p>
+</div></div>
+<div class="saurus-files" style="display:none;"><textarea class="saurus-file" data-file="TwilioChat.Web/Domain/TokenGenerator.cs" data-mode="csharp">77u/dXNpbmcgVHdpbGlvLkF1dGg7CgpuYW1lc3BhY2UgVHdpbGlvQ2hhdC5XZWIuRG9tYWluCnsKICAgIHB1YmxpYyBpbnRlcmZhY2UgSVRva2VuR2VuZXJhdG9yCiAgICB7CiAgICAgICAgc3RyaW5nIEdlbmVyYXRlKHN0cmluZyBpZGVudGl0eSwgc3RyaW5nIGVuZHBvaW50SWQpOwogICAgfQoKICAgIHB1YmxpYyBjbGFzcyBUb2tlbkdlbmVyYXRvciA6IElUb2tlbkdlbmVyYXRvcgogICAgewogICAgICAgIHB1YmxpYyBzdHJpbmcgR2VuZXJhdGUoc3RyaW5nIGlkZW50aXR5LCBzdHJpbmcgZW5kcG9pbnRJZCkKICAgICAgICB7CiAgICAgICAgICAgIHZhciB0b2tlbiA9IG5ldyBBY2Nlc3NUb2tlbigKICAgICAgICAgICAgICAgIENvbmZpZ3VyYXRpb24uQWNjb3VudFNJRCwgQ29uZmlndXJhdGlvbi5BcGlLZXksIENvbmZpZ3VyYXRpb24uQXBpU2VjcmV0KQogICAgICAgICAgICB7CiAgICAgICAgICAgICAgICBJZGVudGl0eSA9IGlkZW50aXR5CiAgICAgICAgICAgIH07CgogICAgICAgICAgICB2YXIgZ3JhbnQgPSBuZXcgSXBNZXNzYWdpbmdHcmFudCB7RW5kcG9pbnRJZCA9IGVuZHBvaW50SWQsIFNlcnZpY2VTaWQgPSBDb25maWd1cmF0aW9uLklwbVNlcnZpY2VTSUR9OwogICAgICAgICAgICB0b2tlbi5BZGRHcmFudChncmFudCk7CgogICAgICAgICAgICByZXR1cm4gdG9rZW4uVG9KV1QoKTsKICAgICAgICB9CiAgICB9Cn0=</textarea>
+<textarea class="saurus-file" data-file="TwilioChat.Web/Controllers/TokenController.cs" data-mode="csharp">77u/dXNpbmcgU3lzdGVtLldlYi5NdmM7CnVzaW5nIFR3aWxpb0NoYXQuV2ViLkRvbWFpbjsKCm5hbWVzcGFjZSBUd2lsaW9DaGF0LldlYi5Db250cm9sbGVycwp7CiAgICBwdWJsaWMgY2xhc3MgVG9rZW5Db250cm9sbGVyIDogQ29udHJvbGxlcgogICAgewogICAgICAgIHByaXZhdGUgcmVhZG9ubHkgSVRva2VuR2VuZXJhdG9yIF90b2tlbkdlbmVyYXRvcjsKCiAgICAgICAgcHVibGljIFRva2VuQ29udHJvbGxlcigpIDogdGhpcyhuZXcgVG9rZW5HZW5lcmF0b3IoKSkgeyB9CgogICAgICAgIHB1YmxpYyBUb2tlbkNvbnRyb2xsZXIoSVRva2VuR2VuZXJhdG9yIHRva2VuR2VuZXJhdG9yKQogICAgICAgIHsKICAgICAgICAgICAgX3Rva2VuR2VuZXJhdG9yID0gdG9rZW5HZW5lcmF0b3I7CiAgICAgICAgfQoKICAgICAgICAvLyBQT1NUOiBUb2tlbi9HZW5lcmF0ZQogICAgICAgIFtIdHRwUG9zdF0KICAgICAgICBwdWJsaWMgQWN0aW9uUmVzdWx0IEdlbmVyYXRlKHN0cmluZyBkZXZpY2UsIHN0cmluZyBpZGVudGl0eSkKICAgICAgICB7CiAgICAgICAgICAgIGlmIChkZXZpY2UgPT0gbnVsbCB8fCBpZGVudGl0eSA9PSBudWxsKSByZXR1cm4gbnVsbDsKCiAgICAgICAgICAgIGNvbnN0IHN0cmluZyBhcHBOYW1lID0gIlR3aWxpb0NoYXREZW1vIjsKICAgICAgICAgICAgdmFyIGVuZHBvaW50SWQgPSBzdHJpbmcuRm9ybWF0KCJ7MH06ezF9OnsyfSIsIGFwcE5hbWUsIGlkZW50aXR5LCBkZXZpY2UpOwoKICAgICAgICAgICAgdmFyIHRva2VuID0gX3Rva2VuR2VuZXJhdG9yLkdlbmVyYXRlKGlkZW50aXR5LCBlbmRwb2ludElkKTsKICAgICAgICAgICAgcmV0dXJuIEpzb24obmV3IHtpZGVudGl0eSwgdG9rZW59KTsKICAgICAgICB9CiAgICB9Cn0K</textarea>
+<textarea class="saurus-file" data-file="TwilioChat.Web/Scripts/twiliochat.js" data-mode="javascript">dmFyIEdFTkVSQUxfQ0hBTk5FTF9VTklRVUVfTkFNRSA9ICdnZW5lcmFsJzsKdmFyIEdFTkVSQUxfQ0hBTk5FTF9OQU1FID0gJ0dlbmVyYWwgQ2hhbm5lbCc7CnZhciBNRVNTQUdFU19ISVNUT1JZX0xJTUlUID0gNTA7CnZhciBhY2Nlc3NNYW5hZ2VyOwp2YXIgbWVzc2FnaW5nQ2xpZW50Owp2YXIgZ2VuZXJhbENoYW5uZWw7CnZhciBjdXJyZW50Q2hhbm5lbDsKdmFyIGN1cnJlbnRDaGFubmVsQ29udGFpbmVyOwp2YXIgY2hhbm5lbEFycmF5OwoKdmFyIHVzZXJuYW1lOwoKdmFyIG1lc3NhZ2VMaXN0Owp2YXIgY2hhbm5lbExpc3Q7CnZhciBpbnB1dFRleHQ7CnZhciB1c2VybmFtZUlucHV0Owp2YXIgdXNlcm5hbWVTcGFuOwp2YXIgc3RhdHVzUm93Owp2YXIgY29ubmVjdFBhbmVsOwp2YXIgY29ubmVjdEltYWdlOwp2YXIgYWRkQ2hhbm5lbEltYWdlOwp2YXIgbGVhdmVTcGFuOwp2YXIgbmV3Q2hhbm5lbElucHV0Um93Owp2YXIgbmV3Q2hhbm5lbElucHV0Owp2YXIgZGVsZXRlQ2hhbm5lbFNwYW47CnZhciB0eXBpbmdSb3c7CnZhciB0eXBpbmdQbGFjZWhvbGRlcjsKCiQoZG9jdW1lbnQpLnJlYWR5KGZ1bmN0aW9uKCkgewogIG1lc3NhZ2VMaXN0ID0gJCgnI21lc3NhZ2UtbGlzdCcpOwogIGNoYW5uZWxMaXN0ID0gJCgnI2NoYW5uZWwtbGlzdCcpOwogIGlucHV0VGV4dCA9ICQoJyNpbnB1dC10ZXh0Jyk7CiAgdXNlcm5hbWVJbnB1dCA9ICQoJyN1c2VybmFtZS1pbnB1dCcpOwogIHVzZXJuYW1lU3BhbiA9ICQoJyN1c2VybmFtZS1zcGFuJyk7CiAgc3RhdHVzUm93ID0gJCgnI3N0YXR1cy1yb3cnKTsKICBjb25uZWN0UGFuZWwgPSAkKCcjY29ubmVjdC1wYW5lbCcpOwogIGNvbm5lY3RJbWFnZSA9ICQoJyNjb25uZWN0LWltYWdlJyk7CiAgbGVhdmVTcGFuID0gJCgnI2xlYXZlLXNwYW4nKTsKICBhZGRDaGFubmVsSW1hZ2UgPSAkKCcjYWRkLWNoYW5uZWwtaW1hZ2UnKTsKICBuZXdDaGFubmVsSW5wdXRSb3cgPSAkKCcjbmV3LWNoYW5uZWwtaW5wdXQtcm93Jyk7CiAgbmV3Q2hhbm5lbElucHV0ID0gJCgnI25ldy1jaGFubmVsLWlucHV0Jyk7CiAgZGVsZXRlQ2hhbm5lbFNwYW4gPSAkKCcjZGVsZXRlLWNoYW5uZWwtc3BhbicpOwogIHR5cGluZ1JvdyA9ICQoJyN0eXBpbmctcm93Jyk7CiAgdHlwaW5nUGxhY2Vob2xkZXIgPSAkKCcjdHlwaW5nLXBsYWNlaG9sZGVyJyk7CiAgdXNlcm5hbWVJbnB1dC5mb2N1cygpOwogIHNldHVwTGlzdGVuZXJzKCk7Cn0pOwoKc2V0dXBMaXN0ZW5lcnMgPSBmdW5jdGlvbigpIHsKICB1c2VybmFtZUlucHV0LmtleXByZXNzKGhhbmRsZVVzZXJuYW1lSW5wdXRLZXlwcmVzcyk7CiAgaW5wdXRUZXh0LmtleXByZXNzKGhhbmRsZUlucHV0VGV4dEtleXByZXNzKTsKICBuZXdDaGFubmVsSW5wdXQua2V5cHJlc3MoaGFuZGxlTmV3Q2hhbm5lbElucHV0S2V5cHJlc3MpOwogIGNvbm5lY3RJbWFnZS5jbGljayhjb25uZWN0Q2xpZW50V2l0aFVzZXJuYW1lKTsKICBhZGRDaGFubmVsSW1hZ2UuY2xpY2soc2hvd0FkZENoYW5uZWxJbnB1dCk7CiAgbGVhdmVTcGFuLmNsaWNrKGRpc2Nvbm5lY3RDbGllbnQpOwogIGRlbGV0ZUNoYW5uZWxTcGFuLmNsaWNrKGRlbGV0ZUN1cnJlbnRDaGFubmVsKTsKfQoKaGFuZGxlVXNlcm5hbWVJbnB1dEtleXByZXNzID0gZnVuY3Rpb24oZXZlbnQpIHsKICBpZiAoZXZlbnQua2V5Q29kZSA9PSAxMyl7CiAgICBjb25uZWN0Q2xpZW50V2l0aFVzZXJuYW1lKCk7CiAgfQp9CgpoYW5kbGVJbnB1dFRleHRLZXlwcmVzcyA9IGZ1bmN0aW9uKGV2ZW50KSB7CiAgaWYgKGV2ZW50LmtleUNvZGUgPT0gMTMpIHsKICAgIGN1cnJlbnRDaGFubmVsLnNlbmRNZXNzYWdlKCQodGhpcykudmFsKCkpOwogICAgZXZlbnQucHJldmVudERlZmF1bHQoKTsKICAgICQodGhpcykudmFsKCcnKTsKICB9CiAgZWxzZSB7CiAgICBub3RpZnlUeXBpbmcoKTsKICB9Cn0KCm5vdGlmeVR5cGluZyA9ICQudGhyb3R0bGUoZnVuY3Rpb24oKSB7CiAgY3VycmVudENoYW5uZWwudHlwaW5nKCk7Cn0sIDEwMDApOwoKaGFuZGxlTmV3Q2hhbm5lbElucHV0S2V5cHJlc3MgPSBmdW5jdGlvbihldmVudCkgewogIGlmIChldmVudC5rZXlDb2RlID09IDEzKSB7CiAgICBtZXNzYWdpbmdDbGllbnQuY3JlYXRlQ2hhbm5lbCh7CiAgICAgIGZyaWVuZGx5TmFtZTogbmV3Q2hhbm5lbElucHV0LnZhbCgpCiAgICB9KS50aGVuKGhpZGVBZGRDaGFubmVsSW5wdXQpOwogICAgJCh0aGlzKS52YWwoJycpOwogICAgZXZlbnQucHJldmVudERlZmF1bHQoKTsKICB9Cn0KCmNvbm5lY3RDbGllbnRXaXRoVXNlcm5hbWUgPSBmdW5jdGlvbigpIHsKICB2YXIgdXNlcm5hbWVUZXh0ID0gdXNlcm5hbWVJbnB1dC52YWwoKTsKICB1c2VybmFtZUlucHV0LnZhbCgnJyk7CiAgaWYgKHVzZXJuYW1lVGV4dCA9PSAnJykgewogICAgYWxlcnQoJ1VzZXJuYW1lIGNhbm5vdCBiZSBlbXB0eScpOwogICAgcmV0dXJuOwogIH0KICB1c2VybmFtZSA9IHVzZXJuYW1lVGV4dDsKICBmZXRjaEFjY2Vzc1Rva2VuKHVzZXJuYW1lLCBjb25uZWN0TWVzc2FnaW5nQ2xpZW50KTsKfQoKZmV0Y2hBY2Nlc3NUb2tlbiA9IGZ1bmN0aW9uICh1c2VybmFtZSwgaGFuZGxlcikgewogICQucG9zdCgnL1Rva2VuL0dlbmVyYXRlJywgewogICAgaWRlbnRpdHk6IHVzZXJuYW1lLAogICAgZGV2aWNlOiAnYnJvd3NlcicKICB9LCBmdW5jdGlvbihkYXRhKSB7CiAgICBoYW5kbGVyKGRhdGEpOwogIH0sICdqc29uJyk7Cn07Cgpjb25uZWN0TWVzc2FnaW5nQ2xpZW50ID0gZnVuY3Rpb24odG9rZW5SZXNwb25zZSkgewogIC8vIEluaXRpYWxpemUgdGhlIElQIG1lc3NhZ2luZyBjbGllbnQKICBhY2Nlc3NNYW5hZ2VyID0gbmV3IFR3aWxpby5BY2Nlc3NNYW5hZ2VyKHRva2VuUmVzcG9uc2UudG9rZW4pOwogIG1lc3NhZ2luZ0NsaWVudCA9IG5ldyBUd2lsaW8uSVBNZXNzYWdpbmcuQ2xpZW50KGFjY2Vzc01hbmFnZXIpOwogIHVwZGF0ZUNvbm5lY3RlZFVJKCk7CiAgbG9hZENoYW5uZWxMaXN0KGpvaW5HZW5lcmFsQ2hhbm5lbCk7CiAgbWVzc2FnaW5nQ2xpZW50Lm9uKCdjaGFubmVsQWRkZWQnLCAkLnRocm90dGxlKGxvYWRDaGFubmVsTGlzdCkpOwogIG1lc3NhZ2luZ0NsaWVudC5vbignY2hhbm5lbFJlbW92ZWQnLCAkLnRocm90dGxlKGxvYWRDaGFubmVsTGlzdCkpOwogIG1lc3NhZ2luZ0NsaWVudC5vbigndG9rZW5FeHBpcmVkJywgcmVmcmVzaFRva2VuKTsKfTsKCnJlZnJlc2hUb2tlbiA9IGZ1bmN0aW9uKCkgewogIGZldGNoQWNjZXNzVG9rZW4odXNlcm5hbWUsIHNldE5ld1Rva2VuKTsKfQoKc2V0TmV3VG9rZW4gPSBmdW5jdGlvbih0b2tlblJlc3BvbnNlKSB7CiAgYWNjZXNzTWFuYWdlci51cGRhdGVUb2tlbih0b2tlblJlc3BvbnNlLnRva2VuKTsKfQoKdXBkYXRlQ29ubmVjdGVkVUkgPSBmdW5jdGlvbigpIHsKICB1c2VybmFtZVNwYW4udGV4dCh1c2VybmFtZSk7CiAgc3RhdHVzUm93LmNzcygndmlzaWJpbGl0eScsICd2aXNpYmxlJyk7CiAgbWVzc2FnZUxpc3QuY3NzKCdoZWlnaHQnLCAnOTIlJyk7CiAgY29ubmVjdFBhbmVsLmNzcygnZGlzcGxheScsICdub25lJyk7CiAgaW5wdXRUZXh0LmFkZENsYXNzKCd3aXRoLXNoYWRvdycpOwogIHR5cGluZ1Jvdy5jc3MoJ2Rpc3BsYXknLCAnYmxvY2snKTsKfQoKbG9hZENoYW5uZWxMaXN0ID0gZnVuY3Rpb24oaGFuZGxlcikgewogIGlmIChtZXNzYWdpbmdDbGllbnQgPT09IHVuZGVmaW5lZCkgewogICAgY29uc29sZS5sb2coJ0NsaWVudCBpcyBub3QgaW5pdGlhbGl6ZWQnKTsKICAgIHJldHVybjsKICB9CgogIG1lc3NhZ2luZ0NsaWVudC5nZXRDaGFubmVscygpLnRoZW4oZnVuY3Rpb24oY2hhbm5lbHMpIHsKICAgIGNoYW5uZWxBcnJheSA9ICQubWFwKGNoYW5uZWxzLCBmdW5jdGlvbih2YWx1ZSwgaW5kZXgpIHsKICAgICAgcmV0dXJuIHZhbHVlOwogICAgfSk7CiAgICBjaGFubmVsQXJyYXkgPSBzb3J0Q2hhbm5lbHNCeU5hbWUoY2hhbm5lbEFycmF5KTsKICAgIGNoYW5uZWxMaXN0LnRleHQoJycpOwogICAgY2hhbm5lbEFycmF5LmZvckVhY2goYWRkQ2hhbm5lbCk7CiAgICBpZiAodHlwZW9mIGhhbmRsZXIgPT0gImZ1bmN0aW9uIikgewogICAgICBoYW5kbGVyKCk7CiAgICB9CiAgfSk7Cn07Cgpqb2luR2VuZXJhbENoYW5uZWwgPSBmdW5jdGlvbigpIHsKICBjb25zb2xlLmxvZygnQXR0ZW1wdGluZyB0byBqb2luICJnZW5lcmFsIiBjaGF0IGNoYW5uZWwuLi4nKTsKICBpZiAoIWdlbmVyYWxDaGFubmVsKSB7CiAgICAvLyBJZiBpdCBkb2Vzbid0IGV4aXN0LCBsZXQncyBjcmVhdGUgaXQKICAgIG1lc3NhZ2luZ0NsaWVudC5jcmVhdGVDaGFubmVsKHsKICAgICAgdW5pcXVlTmFtZTogR0VORVJBTF9DSEFOTkVMX1VOSVFVRV9OQU1FLAogICAgICBmcmllbmRseU5hbWU6IEdFTkVSQUxfQ0hBTk5FTF9OQU1FCiAgICB9KS50aGVuKGZ1bmN0aW9uKGNoYW5uZWwpIHsKICAgICAgY29uc29sZS5sb2coJ0NyZWF0ZWQgZ2VuZXJhbCBjaGFubmVsJyk7CiAgICAgIGdlbmVyYWxDaGFubmVsID0gY2hhbm5lbDsKICAgICAgbG9hZENoYW5uZWxMaXN0KGpvaW5HZW5lcmFsQ2hhbm5lbCk7CiAgICB9KTsKICB9CiAgZWxzZSB7CiAgICBjb25zb2xlLmxvZygnRm91bmQgZ2VuZXJhbCBjaGFubmVsOicpOwogICAgc2V0dXBDaGFubmVsKGdlbmVyYWxDaGFubmVsKTsKICB9Cn07CgpzZXR1cENoYW5uZWwgPSBmdW5jdGlvbihjaGFubmVsKSB7CiAgLy8gSm9pbiB0aGUgY2hhbm5lbAogIGNoYW5uZWwuam9pbigpLnRoZW4oZnVuY3Rpb24oam9pbmVkQ2hhbm5lbCkgewogICAgY29uc29sZS5sb2coJ0pvaW5lZCBjaGFubmVsICcgKyBqb2luZWRDaGFubmVsLmZyaWVuZGx5TmFtZSk7CiAgICBsZWF2ZUN1cnJlbnRDaGFubmVsKCk7CiAgICB1cGRhdGVDaGFubmVsVUkoY2hhbm5lbCk7CiAgICBjdXJyZW50Q2hhbm5lbCA9IGNoYW5uZWw7CiAgICBsb2FkTWVzc2FnZXMoKTsKICAgIGNoYW5uZWwub24oJ21lc3NhZ2VBZGRlZCcsIGFkZE1lc3NhZ2VUb0xpc3QpOwogICAgY2hhbm5lbC5vbigndHlwaW5nU3RhcnRlZCcsIHNob3dUeXBpbmdTdGFydGVkKTsKICAgIGNoYW5uZWwub24oJ3R5cGluZ0VuZGVkJywgaGlkZVR5cGluZ1N0YXJ0ZWQpOwogICAgY2hhbm5lbC5vbignbWVtYmVySm9pbmVkJywgbm90aWZ5TWVtYmVySm9pbmVkKTsKICAgIGNoYW5uZWwub24oJ21lbWJlckxlZnQnLCBub3RpZnlNZW1iZXJMZWZ0KTsKICAgIGlucHV0VGV4dC5wcm9wKCdkaXNhYmxlZCcsIGZhbHNlKS5mb2N1cygpOwogICAgbWVzc2FnZUxpc3QudGV4dCgnJyk7CiAgfSk7Cn07Cgpsb2FkTWVzc2FnZXMgPSBmdW5jdGlvbigpIHsKICBjdXJyZW50Q2hhbm5lbC5nZXRNZXNzYWdlcyhNRVNTQUdFU19ISVNUT1JZX0xJTUlUKS50aGVuKGZ1bmN0aW9uIChtZXNzYWdlcykgewogICAgbWVzc2FnZXMuZm9yRWFjaChhZGRNZXNzYWdlVG9MaXN0KTsKICB9KTsKfQoKbGVhdmVDdXJyZW50Q2hhbm5lbCA9IGZ1bmN0aW9uKCkgewogIGlmIChjdXJyZW50Q2hhbm5lbCkgewogICAgY3VycmVudENoYW5uZWwubGVhdmUoKS50aGVuKGZ1bmN0aW9uKGxlZnRDaGFubmVsKSB7CiAgICAgIGNvbnNvbGUubG9nKCdsZWZ0ICcgKyBsZWZ0Q2hhbm5lbC5mcmllbmRseU5hbWUpOwogICAgICBsZWZ0Q2hhbm5lbC5yZW1vdmVMaXN0ZW5lcignbWVzc2FnZUFkZGVkJywgYWRkTWVzc2FnZVRvTGlzdCk7CiAgICAgIGxlZnRDaGFubmVsLnJlbW92ZUxpc3RlbmVyKCd0eXBpbmdTdGFydGVkJywgc2hvd1R5cGluZ1N0YXJ0ZWQpOwogICAgICBsZWZ0Q2hhbm5lbC5yZW1vdmVMaXN0ZW5lcigndHlwaW5nRW5kZWQnLCBoaWRlVHlwaW5nU3RhcnRlZCk7CiAgICAgIGxlZnRDaGFubmVsLnJlbW92ZUxpc3RlbmVyKCdtZW1iZXJKb2luZWQnLCBub3RpZnlNZW1iZXJKb2luZWQpOwogICAgICBsZWZ0Q2hhbm5lbC5yZW1vdmVMaXN0ZW5lcignbWVtYmVyTGVmdCcsIG5vdGlmeU1lbWJlckxlZnQpOwogICAgfSk7CiAgfQp9CgphZGRNZXNzYWdlVG9MaXN0ID0gZnVuY3Rpb24obWVzc2FnZSkgewogIHZhciByb3dEaXYgPSAkKCc8ZGl2PicpLmFkZENsYXNzKCdyb3cgbm8tbWFyZ2luJyk7CiAgcm93RGl2LmxvYWRUZW1wbGF0ZSgkKCIjbWVzc2FnZS10ZW1wbGF0ZSIpLCB7CiAgICB1c2VybmFtZTogbWVzc2FnZS5hdXRob3IsCiAgICBkYXRlOiBnZXRUb2RheURhdGUobWVzc2FnZS50aW1lc3RhbXApLAogICAgYm9keTogbWVzc2FnZS5ib2R5CiAgfSk7CiAgaWYgKG1lc3NhZ2UuYXV0aG9yID09IHVzZXJuYW1lKSB7CiAgICByb3dEaXYuYWRkQ2xhc3MoJ293bi1tZXNzYWdlJyk7CiAgfQoKICBtZXNzYWdlTGlzdC5hcHBlbmQocm93RGl2KTsKICBzY3JvbGxUb01lc3NhZ2VMaXN0Qm90dG9tKCk7Cn07Cgpub3RpZnlNZW1iZXJKb2luZWQgPSBmdW5jdGlvbihtZW1iZXIpIHsKICBub3RpZnkobWVtYmVyLmlkZW50aXR5ICsgJyBqb2luZWQgdGhlIGNoYW5uZWwnKQp9Cgpub3RpZnlNZW1iZXJMZWZ0ID0gZnVuY3Rpb24obWVtYmVyKSB7CiAgbm90aWZ5KG1lbWJlci5pZGVudGl0eSArICcgbGVmdCB0aGUgY2hhbm5lbCcpOwp9Cgpub3RpZnkgPSBmdW5jdGlvbihtZXNzYWdlKSB7CiAgdmFyIHJvdyA9ICQoJzxkaXY+JykuYWRkQ2xhc3MoJ2NvbC1tZC0xMicpOwogIHJvdy5sb2FkVGVtcGxhdGUoJyNtZW1iZXItbm90aWZpY2F0aW9uLXRlbXBsYXRlJywgewogICAgc3RhdHVzOiBtZXNzYWdlCiAgfSk7CiAgbWVzc2FnZUxpc3QuYXBwZW5kKHJvdyk7CiAgc2Nyb2xsVG9NZXNzYWdlTGlzdEJvdHRvbSgpOwp9CgpzaG93VHlwaW5nU3RhcnRlZCA9IGZ1bmN0aW9uKG1lbWJlcikgewogIHR5cGluZ1BsYWNlaG9sZGVyLmh0bWwobWVtYmVyLmlkZW50aXR5ICsgIiBpcyB0eXBpbmcuLi4iKTsKfQoKaGlkZVR5cGluZ1N0YXJ0ZWQgPSBmdW5jdGlvbihtZW1iZXIpIHsKICB0eXBpbmdQbGFjZWhvbGRlci5odG1sKCcnKTsKfQoKc2Nyb2xsVG9NZXNzYWdlTGlzdEJvdHRvbSA9IGZ1bmN0aW9uKCkgewogIG1lc3NhZ2VMaXN0LnNjcm9sbFRvcChtZXNzYWdlTGlzdFswXS5zY3JvbGxIZWlnaHQpOwp9OwoKdXBkYXRlQ2hhbm5lbFVJID0gZnVuY3Rpb24oc2VsZWN0ZWRDaGFubmVsKSB7CiAgdmFyIGNoYW5uZWxFbGVtZW50cyA9ICQoJy5jaGFubmVsLWVsZW1lbnQnKTsKICBjaGFubmVsRWxlbWVudHMgPSAkLm1hcChjaGFubmVsRWxlbWVudHMsIGZ1bmN0aW9uKHZhbHVlLCBpbmRleCkgewogICAgcmV0dXJuIHZhbHVlOwogIH0pOwogIHZhciBjaGFubmVsRWxlbWVudCA9IGNoYW5uZWxFbGVtZW50cy5maWx0ZXIoZnVuY3Rpb24oZWxlbWVudCkgewogICAgcmV0dXJuICQoZWxlbWVudCkuZGF0YSgpLnNpZCA9PT0gc2VsZWN0ZWRDaGFubmVsLnNpZDsKICB9KTsKICBjaGFubmVsRWxlbWVudCA9ICQoY2hhbm5lbEVsZW1lbnQpOwogIGlmIChjdXJyZW50Q2hhbm5lbENvbnRhaW5lciA9PSB1bmRlZmluZWQgJiYgc2VsZWN0ZWRDaGFubmVsLnVuaXF1ZU5hbWUgPT0gR0VORVJBTF9DSEFOTkVMX1VOSVFVRV9OQU1FKSB7CiAgICBjdXJyZW50Q2hhbm5lbENvbnRhaW5lciA9IGNoYW5uZWxFbGVtZW50OwogIH0KICBjdXJyZW50Q2hhbm5lbENvbnRhaW5lci5yZW1vdmVDbGFzcygnc2VsZWN0ZWQtY2hhbm5lbCcpLmFkZENsYXNzKCd1bnNlbGVjdGVkLWNoYW5uZWwnKTsKICBjaGFubmVsRWxlbWVudC5yZW1vdmVDbGFzcygndW5zZWxlY3RlZC1jaGFubmVsJykuYWRkQ2xhc3MoJ3NlbGVjdGVkLWNoYW5uZWwnKTsKICBjdXJyZW50Q2hhbm5lbENvbnRhaW5lciA9IGNoYW5uZWxFbGVtZW50Owp9CgpzaG93QWRkQ2hhbm5lbElucHV0ID0gZnVuY3Rpb24oKSB7CiAgaWYgKG1lc3NhZ2luZ0NsaWVudCkgewogICAgbmV3Q2hhbm5lbElucHV0Um93LmNzcygnZGlzcGxheScsICdibG9jaycpOwogICAgY2hhbm5lbExpc3QuY3NzKCdtYXgtaGVpZ2h0JywgJzY5dmgnKTsKICAgIG5ld0NoYW5uZWxJbnB1dC5mb2N1cygpOwogIH0KfQoKaGlkZUFkZENoYW5uZWxJbnB1dCA9IGZ1bmN0aW9uKCkgewogIG5ld0NoYW5uZWxJbnB1dFJvdy5jc3MoJ2Rpc3BsYXknLCAnbm9uZScpOwogIGNoYW5uZWxMaXN0LmNzcygnbWF4LWhlaWdodCcsICc3NXZoJyk7CiAgbmV3Q2hhbm5lbElucHV0LnZhbCgnJyk7Cn0KCmFkZENoYW5uZWwgPSBmdW5jdGlvbihjaGFubmVsKSB7CiAgaWYgKGNoYW5uZWwudW5pcXVlTmFtZSA9PSBHRU5FUkFMX0NIQU5ORUxfVU5JUVVFX05BTUUpIHsKICAgIGdlbmVyYWxDaGFubmVsID0gY2hhbm5lbDsKICB9CiAgdmFyIHJvd0RpdiA9ICQoJzxkaXY+JykuYWRkQ2xhc3MoJ3JvdyBjaGFubmVsLXJvdycpOwogIHJvd0Rpdi5sb2FkVGVtcGxhdGUoIiNjaGFubmVsLXRlbXBsYXRlIiwgewogICAgY2hhbm5lbE5hbWU6IGNoYW5uZWwuZnJpZW5kbHlOYW1lCiAgfSk7CgogIHZhciBjaGFubmVsUCA9IHJvd0Rpdi5jaGlsZHJlbigpLmNoaWxkcmVuKCkuZmlyc3QoKTsKCiAgcm93RGl2LmNsaWNrKHNlbGVjdENoYW5uZWwpOwogIGNoYW5uZWxQLmRhdGEoJ3NpZCcsIGNoYW5uZWwuc2lkKTsKICBpZiAoY3VycmVudENoYW5uZWwgJiYgY2hhbm5lbC5zaWQgPT0gY3VycmVudENoYW5uZWwuc2lkKSB7CiAgICBjdXJyZW50Q2hhbm5lbENvbnRhaW5lciA9IGNoYW5uZWxQOwogICAgY2hhbm5lbFAuYWRkQ2xhc3MoJ3NlbGVjdGVkLWNoYW5uZWwnKTsKICB9CiAgZWxzZSB7CiAgICBjaGFubmVsUC5hZGRDbGFzcygndW5zZWxlY3RlZC1jaGFubmVsJykKICB9CgogIGNoYW5uZWxMaXN0LmFwcGVuZChyb3dEaXYpOwp9OwoKZGVsZXRlQ3VycmVudENoYW5uZWwgPSBmdW5jdGlvbigpIHsKICBpZiAoIWN1cnJlbnRDaGFubmVsKSB7CiAgICByZXR1cm47CiAgfQogIGlmIChjdXJyZW50Q2hhbm5lbC5zaWQgPT0gZ2VuZXJhbENoYW5uZWwuc2lkKSB7CiAgICBhbGVydCgnWW91IGNhbm5vdCBkZWxldGUgdGhlIGdlbmVyYWwgY2hhbm5lbCcpOwogICAgcmV0dXJuOwogIH0KICBjdXJyZW50Q2hhbm5lbC5kZWxldGUoKS50aGVuKGZ1bmN0aW9uKGNoYW5uZWwpIHsKICAgIGNvbnNvbGUubG9nKCdjaGFubmVsOiAnKyBjaGFubmVsLmZyaWVuZGx5TmFtZSArICcgZGVsZXRlZCcpOwogICAgc2V0dXBDaGFubmVsKGdlbmVyYWxDaGFubmVsKTsKICB9KTsKfQoKc2VsZWN0Q2hhbm5lbCA9IGZ1bmN0aW9uKGV2ZW50KSB7CiAgdmFyIHRhcmdldCA9ICQoZXZlbnQudGFyZ2V0KTsKICB2YXIgY2hhbm5lbFNpZCA9IHRhcmdldC5kYXRhKCkuc2lkOwogIHZhciBzZWxlY3RlZENoYW5uZWwgPSBjaGFubmVsQXJyYXkuZmlsdGVyKGZ1bmN0aW9uKGNoYW5uZWwpIHsKICAgIHJldHVybiBjaGFubmVsLnNpZCA9PT0gY2hhbm5lbFNpZDsKICB9KVswXTsKICBpZiAoc2VsZWN0ZWRDaGFubmVsID09IGN1cnJlbnRDaGFubmVsKSB7CiAgICByZXR1cm47CiAgfQogIHNldHVwQ2hhbm5lbChzZWxlY3RlZENoYW5uZWwpOwp9OwoKZGlzY29ubmVjdENsaWVudCA9IGZ1bmN0aW9uKCkgewogIGxlYXZlQ3VycmVudENoYW5uZWwoKTsKICBjaGFubmVsTGlzdC50ZXh0KCcnKTsKICBtZXNzYWdlTGlzdC50ZXh0KCcnKTsKICBjaGFubmVscyA9IHVuZGVmaW5lZDsKICBzdGF0dXNSb3cuY3NzKCd2aXNpYmlsaXR5JywgJ2hpZGRlbicpOwogIG1lc3NhZ2VMaXN0LmNzcygnaGVpZ2h0JywgJzgwJScpOwogIGNvbm5lY3RQYW5lbC5jc3MoJ2Rpc3BsYXknLCAnYmxvY2snKTsKICBpbnB1dFRleHQucmVtb3ZlQ2xhc3MoJ3dpdGgtc2hhZG93Jyk7CiAgdHlwaW5nUm93LmNzcygnZGlzcGxheScsICdub25lJyk7Cn0KCnNvcnRDaGFubmVsc0J5TmFtZSA9IGZ1bmN0aW9uKGNoYW5uZWxzKSB7CiAgcmV0dXJuIGNoYW5uZWxzLnNvcnQoZnVuY3Rpb24oYSwgYikgewogICAgaWYgKGEuZnJpZW5kbHlOYW1lID09IEdFTkVSQUxfQ0hBTk5FTF9OQU1FKSB7CiAgICAgIHJldHVybiAtMTsKICAgIH0KICAgIGlmIChiLmZyaWVuZGx5TmFtZSA9PSBHRU5FUkFMX0NIQU5ORUxfTkFNRSkgewogICAgICByZXR1cm4gMTsKICAgIH0KICAgIHJldHVybiBhLmZyaWVuZGx5TmFtZS5sb2NhbGVDb21wYXJlKGIuZnJpZW5kbHlOYW1lKTsKICB9KTsKfTsK</textarea>
+</div>
+</div><div class="saurus-overview"><ul></ul></div></div><div class="saurus-code"><div class="file-path"><span class="crumb-container"></span><i class="fa fa-fw fa-folder"></i></div><div class="saurus-editor"></div></div><div class="saurus-explorer"><div class="saurus-file-list"></div><a href="https://github.com/TwilioDevEd/twiliochat-csharp" target="_blank" class="explorer-get-code"> <i class="fa fa-lg fa-github-square"> </i>View Code on GitHub</a></div></div></div></div><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script><script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script><script src="ace/ace.js"></script><script src="ace/theme-monokai.js"></script><script src="viewsaurus.js"></script></body></html>
