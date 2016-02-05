@@ -99,7 +99,7 @@ connectClientWithUsername = function() {
 }
 
 fetchAccessToken = function (username, handler) {
-  $.post('/token', {
+  $.post('/Token/Generate', {
     identity: username,
     device: 'browser'
   }, function(data) {
