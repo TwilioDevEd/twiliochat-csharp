@@ -16,7 +16,7 @@
       **See Also:**
       * [IP Messaging API](//www.twilio.com/docs/api/ip-messaging)
       * [Channels and Messages](//www.twilio.com/docs/api/ip-messaging/guides/channels)
-      * [User Identity & Access Tokens](//www.twilio.com/docs/api/ip-messaging/guides/channels)
+      * [User Identity & Access Tokens](//www.twilio.com/docs/api/ip-messaging/guides/identity)
       * [Twilio IP Messaging Client Reference](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/)
 
   .step(data-title='Token Generation',
@@ -110,54 +110,53 @@
       * `memberJoined`: When another member joins the channel that you are connected to.
       * `memberLeft`: When another member leaves the channel that you are connected to.
 
-      For each of these events, we are registering an function that will handle it.
+      We register a different function to handle each particular event.
 
       ---
 
       *** For a complete list of channel events ***
-      * [IP Channel API](https://media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Channel.html)
+      * [Channel API](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Channel.html)
 
   .step(data-title='Listen to Client Events',
         data-file='TwilioChat.Web/Scripts/twiliochat.js',
         data-highlight='116-118')
     :markdown
-      ## Listen to Channel Events
+      ## Listen to Client Events
 
-      The same way, we can register handlers for events on the Client as well:
+      Just like with channels, we can register handlers for events on the Client:
 
       * `channelAdded`: When a channel becomes visible to the Client.
       * `channelRemoved`: When a channel is no longer visible to the Client.
       * `tokenExpired`: When the supplied token expires.
 
       *** For a complete list of client events ***
-      * [IP Client API](https://media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html)
+      * [IP Messaging Client API](https://media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html)
 
   .step(data-title='Creating a Channel',
         data-file='TwilioChat.Web/Scripts/twiliochat.js',
-        data-highlight='161-169')
+        data-highlight='80-88')
     :markdown
       ## Creating a Channel
 
-      To create a new channel, the user on the "+ Channel" link. That we'll show
+      To create a new channel, the user clicks on the "+ Channel" link. That we'll show
       an input text field where it's possible to type the name of the new channel.
       The only restriction here, is that the user can't create a channel called
       "General Channel". Other than that, creating a channel is as simple as calling
-      `createChannel` passing an object with that has the following required keys:
-
-      * `GENERAL_CHANNEL_UNIQUE_NAME`
-      * `GENERAL_CHANNEL_NAME`
+      `createChannel` with an object that has the `friendlyName` key. You can create a channel
+      with more options though, see a list of the options
+      [here](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html#createChannel).
 
       --- 
 
       ** See Also **
-      * [Client API: Create a Channel](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html#createChannel)
+      * [IP Messaging Client API: Create a Channel](//media.twiliocdn.com/sdk/rtc/js/ip-messaging/releases/0.9.2/docs/api/Client.html#createChannel)
 
 
   .step(data-title='Joining Other Channels',
         data-file='TwilioChat.Web/Scripts/twiliochat.js',
         data-highlight='326-336')
     :markdown
-      ## Joining Other Channel
+      ## Joining Other Channels
 
       When you tap on the name of a channel from the sidebar, that channel is set
       as the `selectedChannel`. The `selectChannel` method takes care of joining
