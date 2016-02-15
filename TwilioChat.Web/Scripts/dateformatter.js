@@ -1,15 +1,21 @@
-﻿getTodayDate = function (date) {
-    var today = moment();
-    var inputDate = moment(date);
-    var outputDate;
+﻿var dateFormatter = (function () {
+    var df = {};
 
-    if (today.format('YYYYMMDD') == inputDate.format('YYYYMMDD')) {
-        outputDate = 'Today - ';
-    }
-    else {
-        outputDate = inputDate.format('MMM. D - ');
-    }
-    outputDate = outputDate + inputDate.format('hh:mma');
+    df.getTodayDate = function (date) {
+        var today = moment();
+        var inputDate = moment(date);
+        var outputDate;
 
-    return outputDate;
-}
+        if (today.format('YYYYMMDD') == inputDate.format('YYYYMMDD')) {
+            outputDate = 'Today - ';
+        }
+        else {
+            outputDate = inputDate.format('MMM. D - ');
+        }
+        outputDate = outputDate + inputDate.format('hh:mma');
+
+        return outputDate;
+    }
+
+    return df;
+})();
