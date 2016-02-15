@@ -14,9 +14,9 @@ namespace TwilioChat.Web.Controllers
             _tokenGenerator = tokenGenerator;
         }
 
-        // POST: Token/Generate
+        // POST: Token
         [HttpPost]
-        public ActionResult Generate(string device, string identity)
+        public ActionResult Index(string device, string identity)
         {
             if (device == null || identity == null) return null;
 

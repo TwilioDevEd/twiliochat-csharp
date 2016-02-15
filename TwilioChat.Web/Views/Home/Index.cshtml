@@ -6,7 +6,7 @@
                     <img id="logo-image" src="~/Content/Images/twilio-logo.png" />
                 </div>
             </div>
-            <div id="status-row" class="row">
+            <div id="status-row" class="row disconnected">
                 <div class="col-md-5 left-align">
                     <span id="delete-channel-span"><b>Delete current channel</b></span>
                 </div>
@@ -19,8 +19,8 @@
     </div>
     <div id="container" class="row">
         <div id="channel-panel" class="col-md-offset-2 col-md-2">
-            <div id="channel-list" class="row"></div>
-            <div id="new-channel-input-row" class="row">
+            <div id="channel-list" class="row not-showing"></div>
+            <div id="new-channel-input-row" class="row not-showing">
                 <textarea placeholder="Type channel name" id="new-channel-input" rows="1" maxlength="20" class="channel-element"></textarea>
             </div>
             <div class="row">
@@ -28,14 +28,14 @@
             </div>
         </div>
         <div id="chat-window" class="col-md-4 with-shadow">
-            <div id="message-list" class="row"></div>
-            <div id="typing-row" class="row">
+            <div id="message-list" class="row disconnected"></div>
+            <div id="typing-row" class="row disconnected">
                 <p id="typing-placeholder"></p>
             </div>
             <div id="input-div" class="row">
                 <textarea id="input-text" disabled="true" placeholder="   Your message"></textarea>
             </div>
-            <div id="connect-panel" class="row with-shadow">
+            <div id="connect-panel" class="disconnected row with-shadow">
                 <div class="row">
                     <div class="col-md-12">
                         <label for="username-input">Username: </label>

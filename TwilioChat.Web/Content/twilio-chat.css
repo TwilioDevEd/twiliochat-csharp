@@ -35,7 +35,6 @@ body {
   height: 5%;
 }
 #typing-row {
-  display: none;
   height: 3%;
   font-weight: lighter;
   font-size: small;
@@ -47,14 +46,25 @@ body {
   padding-left: 10px;
 }
 #message-list {
-  height: 80%;
   overflow-y: scroll;
+}
+#message-list.connected {
+  height: 92%;
+}
+#message-list.disconnected {
+  height: 80%;
 }
 #connect-panel {
   height: 15%;
   background-color: #5B1913;
   text-align: center;
   color: #DEC4C3;
+}
+#connect-panel.connected, #typing-row.disconnected {
+  display: none;
+}
+#connect-panel.disconnected, #typing-row.disconnected {
+  display: block;
 }
 #username-input {
   width: 70%;
@@ -86,18 +96,27 @@ body {
   box-shadow: -1px 0px 0px 0px #5D1E18;
 }
 #channel-list {
-  max-height: 75vh;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+#channel-list.showing {
+  max-height: 75vh;
+}
+#channel-list.not-showing {
+  max-height: 80vh;
 }
 #new-channel-input {
   background-color: #F8E6E4;
   color: #B0ADAE;
   border: 0;
   resize: none;
+  height: 5vh;
 }
-#new-channel-input-row {
+#new-channel-input-row.not-showing {
   display: none;
+}
+#new-channel-input-row.showing {
+  display: block;
 }
 .own-message {
   background-color: #DDD3D2;
@@ -189,6 +208,11 @@ body {
 }
 #status-row {
   margin-bottom: 1vh;
+}
+#status-row.connected {
+  visibility: visible;
+}
+#status-row.disconnected {
   visibility: hidden;
 }
 #connect-image {
