@@ -1,4 +1,4 @@
-﻿using Twilio.Auth;
+﻿using Twilio.JWT;
 
 namespace TwilioChat.Web.Domain
 {
@@ -20,7 +20,7 @@ namespace TwilioChat.Web.Domain
             var grant = new IpMessagingGrant {EndpointId = endpointId, ServiceSid = Configuration.IpmServiceSID};
             token.AddGrant(grant);
 
-            return token.ToJWT();
+            return token.ToJwt();
         }
     }
 }
