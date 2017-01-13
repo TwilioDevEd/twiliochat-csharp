@@ -1,8 +1,19 @@
 version: 1.0.{build}
+environment:
+  nodejs_version: "5.0.0"
 branches:
   except:
   - gh-pages
+install:
+  - ps: Install-Product node $env:nodejs_version
+  - node --version
+  - npm --version
+  - cd TwilioChat.Web/Scripts/ && npm install
 before_build:
 - ps: nuget restore
+
+test_script:
+  - cd TwilioChat.Web/Scripts/ && npm test
+  - nunit3-console "C:\projects\twiliochat-csharp\TwilioChat.Tests\bin\Debug\TwilioChat.Tests.dll"
 build:
   verbosity: minimal
