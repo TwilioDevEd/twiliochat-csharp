@@ -1,4 +1,5 @@
-﻿using Twilio.JWT;
+﻿using System.Collections.Generic;
+using Twilio.Jwt.AccessToken;
 
 namespace TwilioChat.Web.Domain
 {
@@ -11,14 +12,17 @@ namespace TwilioChat.Web.Domain
     {
         public string Generate(string identity, string endpointId)
         {
-            var token = new AccessToken(
-                Configuration.AccountSID, Configuration.ApiKey, Configuration.ApiSecret)
+            var grants = new HashSet<IGrant>
             {
-                Identity = identity
+                new IpMessagingGrant {EndpointId = endpointId, ServiceSid = Configuration.IpmServiceSID}
             };
 
-            var grant = new IpMessagingGrant {EndpointId = endpointId, ServiceSid = Configuration.IpmServiceSID};
-            token.AddGrant(grant);
+            var token = new Token(
+                Configuration.AccountSID,
+                Configuration.ApiKey,
+                Configuration.ApiSecret,
+                identity,
+                grants: grants);
 
             return token.ToJwt();
         }
