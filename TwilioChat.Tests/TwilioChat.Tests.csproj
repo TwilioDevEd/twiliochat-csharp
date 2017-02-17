@@ -88,7 +88,7 @@
       <HintPath>..\packages\TestStack.FluentMVCTesting.Mvc4.3.0.0\lib\NET40\TestStack.FluentMVCTesting.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="Twilio, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Twilio.5.0.0-rca2\lib\net45\Twilio.dll</HintPath>
+      <HintPath>..\packages\Twilio.5.0.0-rca4\lib\net45\Twilio.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -138,7 +138,7 @@
   </Choose>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
