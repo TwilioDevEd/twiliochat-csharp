@@ -87,9 +87,8 @@
     <Reference Include="TestStack.FluentMVCTesting.Mvc4">
       <HintPath>..\packages\TestStack.FluentMVCTesting.Mvc4.3.0.0\lib\NET40\TestStack.FluentMVCTesting.Mvc4.dll</HintPath>
     </Reference>
-    <Reference Include="Twilio, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Twilio.5.0.0\lib\net35\Twilio.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Twilio, Version=5.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.5.5.2\lib\net35\Twilio.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Choose>
