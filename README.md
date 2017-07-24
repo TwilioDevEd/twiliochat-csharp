@@ -22,15 +22,15 @@ C# implementation of Twilio Chat using ASP.NET MVC
      <add key="TwilioAccountSid" value="Your Twilio Account SID" />
      <add key="TwilioApiKey" value="Your Twilio API Key" />
      <add key="TwilioApiSecret" value="Your Twilio API Secret" />
-     <add key="TwilioIpmServiceSid" value="Your IPM Service SID" />
+     <add key="TwilioIpmServiceSid" value="Your Chat Service SID" />
    </appSettings>
    ```
 
    As usual your `TwilioAccountSid` can be found at https://www.twilio.com/user/account
 
-   Your `TwilioApiKey` and `TwilioApiSecret` can be found at https://www.twilio.com/user/account/ip-messaging/dev-tools/api-keys
+   Your `TwilioApiKey` and `TwilioApiSecret` can be found at https://www.twilio.com/console/dev-tools/api-keys
 
-   And finally, your `TwilioIpmServiceSid` can be found at https://www.twilio.com/user/account/ip-messaging/services
+   And finally, your `TwilioIpmServiceSid` can be found at https://www.twilio.com/console/chat/dashboard
 
 1. Build the solution.
 
