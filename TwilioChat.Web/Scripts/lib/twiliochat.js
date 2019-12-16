@@ -112,7 +112,7 @@ var twiliochat = (function () {
     }
 
     function setNewToken(token) {
-        tc.messagingClient.updateToken(tokenResponse.token);
+        tc.messagingClient.updateToken(token);
     }
 
     function updateConnectedUI() {

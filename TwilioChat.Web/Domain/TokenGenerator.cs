@@ -14,7 +14,7 @@ namespace TwilioChat.Web.Domain
         {
             var grants = new HashSet<IGrant>
             {
-                new  ChatGrant {EndpointId = endpointId, ServiceSid = Configuration.ChatServiceSID}
+                new ChatGrant {EndpointId = endpointId, ServiceSid = Configuration.ChatServiceSID}
             };
 
             var token = new Token(

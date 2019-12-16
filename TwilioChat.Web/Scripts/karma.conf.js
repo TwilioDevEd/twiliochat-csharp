@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Tue Dec 13 2016 16:39:58 GMT-0300 (ART)
 
+process.env.CHROME_BIN = require('puppeteer').executablePath()
+
 module.exports = function(config) {
   config.set({
 
@@ -20,10 +22,8 @@ module.exports = function(config) {
     files: [
        'node_modules/babel-polyfill/dist/polyfill.js',
        'node_modules/jquery/dist/jquery.js',
+       'node_modules/jquery-migrate/dist/jquery-migrate.js',
        'node_modules/moment/moment.js',
-       'node_modules/mocha/dist/mocha.js',
-       'node_modules/chai/dist/chai.js',
-       'node_modules/sinon/dist/sinon.js',
        'lib/dateformatter.js',
        'lib/jquery-throttle.min.js',
        'lib/jquery.loadTemplate-1.4.4.min.js',
@@ -59,7 +59,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['ChromeHeadless'],
 
 
     // Continuous Integration mode
