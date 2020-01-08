@@ -19,9 +19,9 @@ namespace TwilioChat.Web.Domain
             get { return WebConfigurationManager.AppSettings["TwilioApiSecret"]; }
         }
 
-        public static string IpmServiceSID
+        public static string ChatServiceSID
         {
-            get { return WebConfigurationManager.AppSettings["TwilioIpmServiceSid"]; }
+            get { return WebConfigurationManager.AppSettings["TwilioChatServiceSid"]; }
         }
     }
 }

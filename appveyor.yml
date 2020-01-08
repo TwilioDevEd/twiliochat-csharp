@@ -1,6 +1,6 @@
 version: 1.0.{build}
 environment:
-  nodejs_version: "5.0.0"
+  nodejs_version: "12.13.1"
 branches:
   except:
   - gh-pages
