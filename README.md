@@ -10,6 +10,8 @@ C# implementation of Twilio Chat using ASP.NET MVC
 
 ## Local Development
 
+**NOTE**: You need a Windows environment with Visual Studio to run this project. Since this project was made using .NET Framework 4.5, it's not compatible with .NET Core, so it's mandatory to run on Windows.
+
 1. Clone this repository and `cd` into its directory:
    ```
    git clone git@github.com:TwilioDevEd/twiliochat-csharp.git
@@ -22,7 +24,7 @@ C# implementation of Twilio Chat using ASP.NET MVC
      <add key="TwilioAccountSid" value="Your Twilio Account SID" />
      <add key="TwilioApiKey" value="Your Twilio API Key" />
      <add key="TwilioApiSecret" value="Your Twilio API Secret" />
-     <add key="TwilioIpmServiceSid" value="Your Chat Service SID" />
+     <add key="TwilioChatServiceSid" value="Your Chat Service SID" />
    </appSettings>
    ```
 
@@ -30,15 +32,22 @@ C# implementation of Twilio Chat using ASP.NET MVC
 
    Your `TwilioApiKey` and `TwilioApiSecret` can be found at https://www.twilio.com/console/dev-tools/api-keys
 
-   And finally, your `TwilioIpmServiceSid` can be found at https://www.twilio.com/console/chat/dashboard
+   And finally, your `TwilioChatServiceSid` can be found at https://www.twilio.com/console/chat/dashboard
 
-1. Build the solution.
+1. Open the project using Visual Studio
 
-1. Run the application.
+1. Using Visual Studio's UI, choose Build Solution from the Build menu.
+
+1. To run the code, click the green play button in the toolbar.
 
 1. Check it out at [http://localhost:1398](http://localhost:1398)
 
 That's it!
+
+## Tests
+
+1. If Test Explorer is not open, open it by choosing Test > Windows > Test Explorer from the top menu bar.
+1. Choose Run All to run the tests.
 
 ## Meta
 
