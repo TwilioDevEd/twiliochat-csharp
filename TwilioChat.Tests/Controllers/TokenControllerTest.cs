@@ -14,7 +14,7 @@ namespace TwilioChat.Tests.Controllers
             var mockTokenGenerator = new Mock<ITokenGenerator>();
             var controller = new TokenController(mockTokenGenerator.Object);
 
-            controller.WithCallTo(c => c.Index("browser", "identity"))
+            controller.WithCallTo(c => c.Index("identity"))
                 .ShouldReturnJson();
         }
     }

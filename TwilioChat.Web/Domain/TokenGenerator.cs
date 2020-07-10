@@ -5,16 +5,16 @@ namespace TwilioChat.Web.Domain
 {
     public interface ITokenGenerator
     {
-        string Generate(string identity, string endpointId);
+        string Generate(string identity);
     }
 
     public class TokenGenerator : ITokenGenerator
     {
-        public string Generate(string identity, string endpointId)
+        public string Generate(string identity)
         {
             var grants = new HashSet<IGrant>
             {
-                new ChatGrant {EndpointId = endpointId, ServiceSid = Configuration.ChatServiceSID}
+                new ChatGrant {ServiceSid = Configuration.ChatServiceSID}
             };
 
             var token = new Token(
