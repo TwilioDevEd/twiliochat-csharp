@@ -16,14 +16,11 @@ namespace TwilioChat.Web.Controllers
 
         // POST: Token
         [HttpPost]
-        public ActionResult Index(string device, string identity)
+        public ActionResult Index(string identity)
         {
-            if (device == null || identity == null) return null;
+            if (identity == null) return null;
 
-            const string appName = "TwilioChatDemo";
-            var endpointId = string.Format("{0}:{1}:{2}", appName, identity, device);
-
-            var token = _tokenGenerator.Generate(identity, endpointId);
+            var token = _tokenGenerator.Generate(identity);
             return Json(new {identity, token});
         }
     }
