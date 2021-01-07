@@ -1,3 +1,5 @@
+> The [Twilio Conversations API](https://www.twilio.com/docs/conversations) is now Generally Available! We recommend using Conversations to build your chat application to get access to additional channels and even more functionality.
+
 <a href="https://www.twilio.com">
   <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
 </a>
