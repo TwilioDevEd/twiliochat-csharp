@@ -18,7 +18,7 @@ C# implementation of Twilio Chat using ASP.NET MVC
 
 1. Clone this repository and `cd` into its directory:
    ```
-   git clone git@github.com:TwilioDevEd/twiliochat-csharp.git
+   git clone https://github.com/TwilioDevEd/twiliochat-csharp.git
    cd twiliochat-csharp
    ```
 
